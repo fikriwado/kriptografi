@@ -3,77 +3,26 @@ import {
 	Container, Box, Heading, Textarea, Text, Input, Button,
 	Table, Tbody, Tr, Th, Td, TableContainer,
 } from '@chakra-ui/react';
+import { codeToString, newKey, encryptVigenere, decryptVigenere } from '../../utils/vigenere';
 
 const Home = () => {
 	// initialization state
 	const [isClicked, setIsClicked] = useState(false);
-	const [message, setMessage] = useState('hafit syukri dan hican');
-	const [keyVigenere, setKeyVigenere] = useState('kpukp kpukpu puk ukpuk');
+	const [message, setMessage] = useState('');
+	const [keyVigenere, setKeyVigenere] = useState('');
 	const [keyCaesar, setKeyCaesar] = useState('');
 
-	// initialization alphabet
-	const alphabet = [
-		'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
-		'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
-		's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
-	];
-
-	// function for get code from alphabet
-	function getKeyByValue(value) {
-		return parseInt(Object.keys(alphabet).find(key => alphabet[key] === value));
-	}
-
-	// function for convert code to alphabet
-	function codeToString(code) {
-		const result = code.map((kode) => {
-			return alphabet[kode] ?? ' ';
-		});
-		return result;
-	}
-
-	const newKey = () => {
-		if (keyVigenere.length > message.length) {
-			return keyVigenere.split('').slice(0, message.length).join('');
-		} else {
-			return keyVigenere + alphabet.slice(0, message.length - keyVigenere.length).join('');
-		}
-	}
-	
-	// function for encrypt vigenere
-	function encryptVigenere(message) {
-		const codeKey = newKey().split('').map(letter => getKeyByValue(letter));
-		console.info(codeKey);
-		const codeAlphabet = message.split('').map(letter => {
-			return getKeyByValue(letter);
-		});
-
-		const encrypt = codeAlphabet.map((code, index) => {
-			return (((parseInt(code) + parseInt(codeKey[index])) % 26) + 26) % 26;
-		});
-
-		return encrypt;
-	}
-
-	// function for decrypt vigenere
-	function decryptVigenere(encrypt) {
-		const codeKey = newKey().split('').map(letter => getKeyByValue(letter));
-		
-		const decrypt = encrypt.map((code, index) => {
-			return (((parseInt(code) - parseInt(codeKey[index])) % 26) + 26) % 26;
-		});
-
-		return decrypt;
+	const handleKeyVigenere = () => {
+		return newKey(message, keyVigenere);
 	}
 
 	const handleEncryptVigenere = () => {
-		const encrypt = encryptVigenere(message);		
-		return {
-			encrypt, result: codeToString(encrypt).join('')
-		}
+		const encrypt = encryptVigenere(message, handleKeyVigenere);		
+		return { encrypt, result: codeToString(encrypt).join('') }
 	}
 	
 	const handleDecryptVigenere = () => {
-		const decrypt = decryptVigenere(handleEncryptVigenere().encrypt);		
+		const decrypt = decryptVigenere(handleEncryptVigenere().encrypt, handleKeyVigenere);		
 		return codeToString(decrypt).join('');
 	}
 
@@ -135,7 +84,7 @@ const Home = () => {
 									</Tr>
 									<Tr>
 										<Th borderColor='gray.300'>Kunci</Th>
-										<Td borderColor='gray.300'>{newKey()}</Td>
+										<Td borderColor='gray.300'>{handleKeyVigenere()}</Td>
 									</Tr>
 									<Tr>
 										<Th borderColor='gray.300'>Enkripsi</Th>

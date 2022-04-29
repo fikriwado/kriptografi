@@ -5,17 +5,4 @@ const alphabet = [
     's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
 ];
 
-// function for get code from alphabet
-const getKeyByValue = (value) => {
-    return Object.keys(alphabet).find(key => alphabet[key] === value);
-}
-
-// function for convert code to alphabet
-const codeToString = (code) => {
-    const result = code.map((kode) => {
-        return alphabet[kode] ?? ' ';
-    });
-    return result;
-}
-
-export { getKeyByValue, codeToString }
+export default alphabet;
