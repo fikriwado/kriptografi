@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
 	Container, Box, Heading, Textarea, Text, Input, Button,
 	Table, Tbody, Tr, Th, Td, TableContainer,
@@ -12,15 +12,25 @@ const Home = () => {
 	const [keyVigenere, setKeyVigenere] = useState('');
 	const [keyCaesar, setKeyCaesar] = useState('');
 
+	// without live update
+	useEffect(() => {
+		if (isClicked) {
+			setIsClicked(false);
+		}
+	}, [message, keyVigenere, keyCaesar]);
+
+	// function for handle key vigenere
 	const handleKeyVigenere = () => {
 		return newKey(message, keyVigenere);
 	}
 
+	// function for handle encrypt vigenere
 	const handleEncryptVigenere = () => {
 		const encrypt = encryptVigenere(message, handleKeyVigenere);		
 		return { encrypt, result: codeToString(encrypt).join('') }
 	}
 	
+	// function for handle decrypt vigenere
 	const handleDecryptVigenere = () => {
 		const decrypt = decryptVigenere(handleEncryptVigenere().encrypt, handleKeyVigenere);		
 		return codeToString(decrypt).join('');
