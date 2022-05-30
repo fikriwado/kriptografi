@@ -33,8 +33,10 @@ const newKey = (message, key) => {
 // function for encrypt vigenere
 function encryptVigenere(message, handleKeyVigenere) {
     const codeKey = handleKeyVigenere().split('').map(letter => getKeyByValue(letter));
+
+    
     const codeAlphabet = message.split('').map(letter => {
-        return getKeyByValue(letter);
+        return getKeyByValue(letter.toLowerCase());
     });
 
     const encrypt = codeAlphabet.map((code, index) => {

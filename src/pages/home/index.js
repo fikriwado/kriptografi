@@ -48,7 +48,6 @@ const Home = () => {
 		
 		const newKeyRoute = keyRoute.match(/^[2-9]+$/) ? keyRoute : 2;
 		const doDecryptRoute = decryptRoute(handleEncrypt().encryptRoute, newKeyRoute);
-		console.info(doDecryptRoute);
 		
 		return { 
 			decryptVigenere: codeToString(decrypt).join(''),
@@ -91,6 +90,11 @@ const Home = () => {
 							value={keyRoute}
 							onChange={e => setKeyRoute(e.target.value)}
 						/>
+						{
+							!keyRoute.match(/^[2-9]+$/) ? (
+								<Text fontSize='xs' as="i" color='gray'>Harus di isi dengan angka 2 - 9</Text>
+							) : null
+						}
 					</Box>
 					
 					{
@@ -111,7 +115,7 @@ const Home = () => {
 							<Table variant='simple'>
 								<Tbody>
 									<Tr>
-										<Th borderColor='gray.300' width='800px'>Pesan yang di enkripsi</Th>
+										<Th borderColor='gray.300' w={700}>Pesan yang di enkripsi</Th>
 										<Td borderColor='gray.300'>{message}</Td>
 									</Tr>
 									<Tr>
@@ -136,12 +140,12 @@ const Home = () => {
 					</Box>
 					
 					<Box>
-						<Heading mb='6'>Enkripsi 2: Algoritma Caesar Cipher</Heading>
+						<Heading mb='6'>Enkripsi 2: Algoritma Route Cipher</Heading>
 						<TableContainer border='1px' borderColor='gray.300'>
 							<Table variant='simple'>
 								<Tbody>
 									<Tr>
-										<Th borderColor='gray.300' width='800px'>Pesan yang di enkripsi</Th>
+										<Th borderColor='gray.300' w={700}>Pesan yang di enkripsi</Th>
 										<Td borderColor='gray.300'>{handleEncrypt().encryptVigenere}</Td>
 									</Tr>
 									<Tr>
@@ -207,11 +211,11 @@ const Home = () => {
 						</HStack>
 
 						<a href='https://github.com/fikriwado' target="_blank">
-							<Button	Button colorScheme='black' size='md' variant='outline' mr="2">Github</Button>
+							<Button	colorScheme='black' size='md' variant='outline' mr="2">Github</Button>
 						</a>
 						
 						<a href='https://www.linkedin.com/in/fikriwado' target="_blank">
-							<Button	Button colorScheme='blue' size='md' variant='outline'>LinkedIn</Button>
+							<Button	colorScheme='blue' size='md' variant='outline'>LinkedIn</Button>
 						</a>
 					</Box>
 					<Box>
