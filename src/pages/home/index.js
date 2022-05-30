@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import {
 	Container, SimpleGrid, Box, Heading, Textarea, Text, Input, Button,
-	Table, Tbody, Tr, Th, Td, TableContainer, Image, HStack,
+	Table, Tbody, Tr, Th, Td, TableContainer, Image, Stack,
 } from '@chakra-ui/react';
 import { codeToString, newKey, encryptVigenere, decryptVigenere } from '../../utils/vigenere';
 import { encryptRoute, decryptRoute } from '../../utils/route';
@@ -171,13 +171,13 @@ const Home = () => {
 				</Box>
 			) : null }
 
-			<Box p='10' bg='blue.50' mx='auto' mt='10' border='1px' borderColor='gray.200'>
-				<SimpleGrid columns={2} spacing={10}>
+			<Box p={[5, 10]} bg='blue.50' mx='auto' mt='10' border='1px' borderColor='gray.200'>
+				<SimpleGrid columns={[1, 1, 1, 2]} spacing={10}>
 					<Box>
 						<Heading mb='6'>Profil Mahasiswa</Heading>
 						
-						<HStack spacing='24px' mb="4">
-							<Box w='150px'>
+						<Stack direction={['column', 'row']} align="center" spacing='24px' mb="4">
+							<Box>
 								<Image
 									borderRadius='full'
 									boxSize='150px'
@@ -186,12 +186,12 @@ const Home = () => {
 								/>
 							</Box>
 							<Box>
-								<TableContainer border='1px' borderColor='gray.300'>
-									<Table variant='unstyled'>
+								<TableContainer border='1px' borderColor='gray.300' mb="3">
+									<Table variant='unstyled' size="sm">
 										<Tbody>
 											<Tr>
-												<Th width="100px">Nama</Th>
-												<Td w="10">:</Td>
+												<Th>Nama</Th>
+												<Td>:</Td>
 												<Td>Moch Fikri Khoirurrizal</Td>
 											</Tr>
 											<Tr>
@@ -207,25 +207,26 @@ const Home = () => {
 										</Tbody>
 									</Table>
 								</TableContainer>
+								
+								<a href='https://github.com/fikriwado' target="_blank">
+									<Button	colorScheme='black' size='sm' variant='outline' mr="2">Github</Button>
+								</a>
+								
+								<a href='https://www.linkedin.com/in/fikriwado' target="_blank">
+									<Button	colorScheme='blue' size='sm' variant='outline'>LinkedIn</Button>
+								</a>
 							</Box>
-						</HStack>
+						</Stack>
 
-						<a href='https://github.com/fikriwado' target="_blank">
-							<Button	colorScheme='black' size='md' variant='outline' mr="2">Github</Button>
-						</a>
-						
-						<a href='https://www.linkedin.com/in/fikriwado' target="_blank">
-							<Button	colorScheme='blue' size='md' variant='outline'>LinkedIn</Button>
-						</a>
 					</Box>
 					<Box>
 						<Heading mb='6'>Rincian Project</Heading>
 						<TableContainer border='1px' borderColor='gray.300'>
-							<Table variant='unstyled'>
+							<Table variant='unstyled' size="sm">
 								<Tbody>
 									<Tr>
-										<Th width="200px">Algoritma</Th>
-										<Td w="10">:</Td>
+										<Th>Algoritma</Th>
+										<Td>:</Td>
 										<Td>Vigenere Chiper & Route Chiper</Td>
 									</Tr>
 									<Tr>
